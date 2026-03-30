@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.drivingpal.prototype">
 
-    <!-- Permissions -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -11,15 +10,15 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!-- Hardware feature declaration -->
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" /> <!-- ✅ Added -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" /> 
+
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -29,10 +28,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DrivingPal">
 
-        <!-- Activities -->
+        <activity android:name=".SmsCustomizationActivity" android:exported="false" />
+        <activity android:name=".CallLogsActivity" android:exported="false" />
+        <activity android:name=".EmergencyContactsActivity" android:exported="false" />
+        
         <activity
-            android:name=".SmsCustomizationActivity"
-            android:exported="false" />
+            android:name=".DriveModeActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:showWhenLocked="true"
+            android:excludeFromRecents="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -42,24 +49,19 @@
             </intent-filter>
         </activity>
 
-        <!-- ✅ Accident Dialog Activity -->
         <activity
             android:name=".AccidentDialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
+            android:showWhenLocked="true"
             android:turnScreenOn="true" />
 
-        <!-- ✅ Accident Detection Service -->
-        <service
-            android:name=".AccidentDetectionService"
-            android:enabled="true"
-            android:exported="false" />
+        <service android:name=".AccidentDetectionService" android:enabled="true" android:exported="false" />
 
-        <!-- Receiver for call events -->
         <receiver
             android:name=".callreceiver"
             android:enabled="true"

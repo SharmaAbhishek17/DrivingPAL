@@ -2,47 +2,64 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:background="@color/bg_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auto-Reply Settings"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
 
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type your message here"
+            android:hint="Type your custom message..."
+            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/text_primary"
             android:inputType="textMultiLine"
             android:minLines="3"
             android:maxLines="5"
-            android:background="@android:drawable/edit_text"
-            android:padding="10dp"
-            android:textSize="16sp" />
+            android:background="@drawable/bg_glass_card"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:gravity="top|start" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveMessageBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Message"
-            android:layout_marginTop="10dp" />
+            android:layout_height="56dp"
+            android:text="Save Custom Message"
+            android:textColor="@color/bg_dark"
+            android:textStyle="bold"
+            android:background="@drawable/bg_drive_button"
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Saved Messages:"
+            android:text="Saved Templates"
+            android:textColor="@color/text_secondary"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginTop="20dp" />
+            android:textSize="14sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp" />
 
         <LinearLayout
             android:id="@+id/savedMessagesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:divider="?android:attr/dividerHorizontal"
-            android:showDividers="middle" />
+            android:animateLayoutChanges="true" />
+            
     </LinearLayout>
 </ScrollView>

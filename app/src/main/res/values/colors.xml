@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Premium Neon Theme Colors -->
+    <color name="brand_primary">#00F0FF</color>
+    <color name="brand_secondary">#7000FF</color>
+    <color name="bg_dark">#020617</color>
+    <color name="glass_surface">#1AFFFFFF</color>
+    <color name="glass_stroke">#33FFFFFF</color>
+    <color name="danger_red">#FF3366</color>
+    <color name="danger_red_surface">#33FF3366</color>
+    <color name="success_green">#00E676</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#94A3B8</color>
 </resources>

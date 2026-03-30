@@ -1,11 +1,16 @@
 package com.drivingpal.prototype
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.telephony.SmsManager
+import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 class SmsCustomizationActivity : AppCompatActivity() {
 
@@ -24,6 +29,8 @@ class SmsCustomizationActivity : AppCompatActivity() {
         savedMessagesList = findViewById(R.id.savedMessagesList)
 
         saveButton.setOnClickListener {
+            animateClick(it)
+            
             val message = messageEditText.text.toString()
             if (message.isNotEmpty()) {
                 saveMessageToPreferences(message)
@@ -36,6 +43,15 @@ class SmsCustomizationActivity : AppCompatActivity() {
         }
 
         loadSavedMessages()
+    }
+
+    private fun animateClick(view: android.view.View) {
+        val scaleDownX = PropertyValuesHolder.ofFloat(android.view.View.SCALE_X, 0.9f, 1f)
+        val scaleDownY = PropertyValuesHolder.ofFloat(android.view.View.SCALE_Y, 0.9f, 1f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(view, scaleDownX, scaleDownY)
+        animator.duration = 300
+        animator.interpolator = OvershootInterpolator()
+        animator.start()
     }
 
     private fun saveMessageToPreferences(message: String) {
@@ -54,44 +70,39 @@ class SmsCustomizationActivity : AppCompatActivity() {
         messages.forEach { msg ->
             val textView = TextView(this)
             textView.text = msg
-            textView.setPadding(10, 20, 10, 20)
+            textView.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+            textView.setPadding(40, 40, 40, 40)
             textView.textSize = 16f
-            textView.setBackgroundResource(R.drawable.message_selector_bg)
+            
+            val layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            layoutParams.setMargins(0, 0, 0, 24)
+            textView.layoutParams = layoutParams
 
-            // If previously selected
             if (msg == defaultMessage) {
                 highlightTextView(textView)
                 selectedTextView = textView
                 selectedMessage = msg
+            } else {
+                unhighlightTextView(textView)
             }
 
-            textView.setOnClickListener {
+            textView.setOnClickListener { view ->
+                animateClick(view)
                 if (selectedMessage == msg) {
-                    // Unselect if clicked again
                     unhighlightTextView(textView)
                     selectedTextView = null
                     selectedMessage = null
                     prefs.edit().remove("defaultMessage").apply()
                 } else {
-                    // Highlight new
                     selectedTextView?.let { prev -> unhighlightTextView(prev) }
                     highlightTextView(textView)
                     selectedTextView = textView
                     selectedMessage = msg
 
                     prefs.edit().putString("defaultMessage", msg).apply()
-
-                    val lastNumber = prefs.getString("lastCallerNumber", null)
-                    if (lastNumber != null) {
-                        try {
-                            SmsManager.getDefault().sendTextMessage(lastNumber, null, msg, null, null)
-                            Toast.makeText(this, "Message sent to $lastNumber", Toast.LENGTH_SHORT).show()
-                        } catch (e: Exception) {
-                            Toast.makeText(this, "Failed to send SMS", Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        Toast.makeText(this, "No recent caller number found", Toast.LENGTH_SHORT).show()
-                    }
                 }
             }
 
@@ -99,12 +110,18 @@ class SmsCustomizationActivity : AppCompatActivity() {
         }
     }
 
-    // Subtle highlight using hardcoded transparent yellow
     private fun highlightTextView(textView: TextView) {
-        textView.setBackgroundColor(Color.parseColor("#40FFFF00")) // 25% transparent yellow
+        textView.setBackgroundResource(R.drawable.bg_gradient_neon)
+        textView.setTextColor(Color.BLACK)
     }
 
     private fun unhighlightTextView(textView: TextView) {
-        textView.setBackgroundResource(R.drawable.message_selector_bg)
+        textView.setBackgroundResource(R.drawable.bg_glass_card)
+        textView.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+    }
+    
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

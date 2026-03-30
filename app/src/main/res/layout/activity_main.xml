@@ -1,109 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9">
+    android:background="@color/bg_dark">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="40dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="71dp"
-            android:padding="10dp"
-            android:text="DrivingPal Dashboard"
-            android:background="blue"
-            android:textColor="#333"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <!-- Service Control Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="10dp">
-
-            <Button
-                android:id="@+id/startServiceBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:layout_marginEnd="5dp"
-                android:backgroundTint="@android:color/holo_green_dark"
-                android:text="Start\nDetection"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/stopServiceBtn"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="100dp"
-                android:layout_marginStart="5dp"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:text="Stop\nDetection"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- Feature Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:divider="?android:attr/dividerHorizontal"
-            android:showDividers="middle"
-            android:dividerPadding="8dp">
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-            <Button
+            <!-- Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DrivingPal"
+                android:textColor="@color/brand_primary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: Not Driving"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp"
+                android:layout_marginBottom="40dp" />
+
+            <!-- Massive Drive Mode Buttons -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="40dp">
+
+                <RelativeLayout
+                    android:id="@+id/startServiceBtn"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_drive_button"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="START\nDRIVING"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/stopServiceBtn"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/bg_danger_card"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="STOP\nDRIVING"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!-- Quick Stats -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Calls Blocked"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/callsBlockedText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/brand_primary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Auto-Replies"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/autoRepliesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/brand_secondary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Features &amp; Settings"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Feature Buttons -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addPriorityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Priority Contacts (bypass DND)"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addEmergencyBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Emergency Contact"
-                android:visibility="visible" />
+                android:layout_height="64dp"
+                android:text="SOS Contacts (SMS Alerts)"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/viewEmergencyBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="View Emergency Contacts" />
+                android:layout_height="64dp"
+                android:text="View Contacts"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/customizeSmsBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Customize SMS" />
+                android:layout_height="64dp"
+                android:text="Customize Auto-Reply SMS"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
-                android:id="@+id/testAccidentBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test Accident Detection" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/enableDriveModeBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enable Drive Mode Layout" />
+                android:layout_height="64dp"
+                android:text="Enable Drive Mode Layout"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Testing Tools"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Test Accident Detection has secondary brand outline -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/testAccidentBtn"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="Test Accident Detection"
+                android:textColor="@color/brand_primary"
+                android:background="@drawable/bg_glass_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Emergency Actions -->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/testEmergencyAlertBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Test Emergency Alert Vibration" />
+                android:layout_height="64dp"
+                android:text="Test Emergency Alert"
+                android:textColor="@color/danger_red"
+                android:background="@drawable/bg_danger_card"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sendLocationBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Send Location to Emergency Contact" />
+                android:layout_height="64dp"
+                android:text="Send Emergency Location"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_danger_button"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"/>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
